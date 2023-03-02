@@ -1,3 +1,4 @@
+import { ArrowUpRightIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import urlFor from "../lib/urlFor";
 
@@ -10,7 +11,7 @@ function BlogList({ posts }: Props) {
 		<div>
 			<hr className="border-[#E3735E] mb-10" />
 
-			<div>
+			<div className="grid grid-cols-1 md:grid-cols-2 px-10 gap-10 gap-y-16 pb-24">
 				{posts.map((post) => (
 					<div key={post._id} className="flex flex-col group cursor-pointer">
 						<div className="relative w-full h-80 drop-shadow-xl group-hover:scale-105 transition-transform duration-200 ease-out">
@@ -32,14 +33,24 @@ function BlogList({ posts }: Props) {
 									</p>
 								</div>
 								<div>
-									{post.categories.map((category) => (
-										<div className="bg-[#E3735E] text-center text-black px-3 py-1 rounded-full text-sm font-semibold">
-											<p>{category.title}</p>
-										</div>
-									))}
+									{post.categories &&
+										post.categories.map((category) => (
+											<div className="bg-[#E3735E] text-center text-black px-3 py-1 rounded-full text-sm font-semibold">
+												<p>{category.title}</p>
+											</div>
+										))}
 								</div>
 							</div>
 						</div>
+						<div className="mt-5 flex-1">
+							<p className="underline text-lg font-bold">{post.title}</p>
+							<p className="line-clamp-2 text-gray-500">{post.description}</p>
+						</div>
+
+						<p className="mt-5 font-bold flex items-center group-hover:underline">
+							Read Post
+							<ArrowUpRightIcon className="ml-2 h-4 w-4" />
+						</p>
 					</div>
 				))}
 			</div>

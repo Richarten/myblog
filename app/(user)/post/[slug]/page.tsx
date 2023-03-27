@@ -3,7 +3,7 @@ import Image from "next/image";
 import { client } from "../../../../lib/sanity.client";
 import urlFor from "../../../../lib/urlFor";
 import { PortableText } from "@portabletext/react";
-
+import { RichTextComponents } from "../../../../components/RichTextComponents";
 type Props = {
 	params: {
 		slug: string;
@@ -27,12 +27,14 @@ async function Post({ params: { slug } }: Props) {
 			<section className="spaye-y-2 border border-[#E3735E] text-white">
 				<div className="relative min-h-56 flex flex-col md:flex-row justify-between">
 					<div className="absolute top-0 w-full h-full opacity-10 blur-sm p-10">
-						<Image
-							className="object-cover object-center mx-auto"
-							src={urlFor(post.mainImage).url()}
-							alt={post.author.name}
-							fill
-						/>
+						{post.mainImage && (
+							<Image
+								className="object-cover object-center mx-auto"
+								src={urlFor(post.mainImage).url()}
+								alt={post.author.name}
+								fill
+							/>
+						)}
 					</div>
 					<section className="p-5 bg-[#E3735E] w-full">
 						<div className="flex flex-col md:flex-row justify-between gap-y-5">
@@ -65,16 +67,18 @@ async function Post({ params: { slug } }: Props) {
 
 						<div>
 							<h2 className="italic pt-10">{post.description}</h2>
-							<div className="flex items-center justify-end mt-auto space-x-2">
-								{post.categories.map((category) => (
-									<p
-										key={category._id}
-										className="bg-gray-800 text-white px-3 py-1 rounded-full text-sm font-semibold mt-4"
-									>
-										{category.title}
-									</p>
-								))}
-							</div>
+							{post.categories && (
+								<div className="flex items-center justify-end mt-auto space-x-2">
+									{post.categories.map((category) => (
+										<p
+											key={category._id}
+											className="bg-gray-800 text-white px-3 py-1 rounded-full text-sm font-semibold mt-4"
+										>
+											{category.title}
+										</p>
+									))}
+								</div>
+							)}
 						</div>
 					</section>
 				</div>
